@@ -1,11 +1,14 @@
 import itchat
 import csv
 from time import sleep
+import os
+import arrow
 
 class WechatProcesser():
     def __init__(self):
         itchat.auto_login(hotReload=True, enableCmdQR=False)
         self.csv_file = "wechat_accounts.csv"
+        self.tmp_file = arrow.now('local').format('YYYYMMDD_hh_mm_ss') + '_' + self.csv_file
         self.origin_data = itchat.get_friends()
         self.columns = list(self.origin_data[0].keys())
         self.columns.extend(['ContactType','ChatRoomOwner','HeadImgUpdateFlag'])
@@ -19,23 +22,31 @@ class WechatProcesser():
     #def WriteDictToCSV(csv_file,csv_columns,dict_data):
     def WriteDictToCSV(self):
         try:
-            with open(self.csv_file, 'w',encoding='utf-8-sig') as csvfile:
+            with open(self.tmp_file, 'w',encoding='utf-8-sig') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.columns)
                 writer.writeheader()
                 for data in self.origin_data:
                     writer.writerow(data)
+            print('file_name:{}'.format(self.tmp_file))
         except IOError :
                 print("I/O error({0}): {1}".format(errno, strerror))
         return
     
     #def get_csv_data(file_path):
     def get_csv_data(self):
-        print("file_path:",self.csv_file)
-        with open(self.csv_file, 'r') as f:
+        print("file_path:",self.tmp_file)
+        with open(self.tmp_file, 'r') as f:
             reader = csv.reader(f)
             your_list = list(reader)
             #logger.debug(your_list)
             return your_list
+
+    def del_csv_file(self):
+        if os.path.exists(self.tmp_file):
+            os.remove(self.tmp_file)
+            print("delete tmp csv file")
+        else:
+            print("The file does not exist")
 
     def get_unregister_data(self,list_data):
         name_list = [_j[8] for _j in list_data][2:]
@@ -108,11 +119,11 @@ class WechatProcesser():
 def main():
     # 获取数据
     wp = WechatProcesser()
-    wp.WriteDictToCSV()
-    contacts = wp.get_csv_data()
+    #wp.WriteDictToCSV()
+    #contacts = wp.get_csv_data()
     # 获取未标注数据: 是有备注，但是没有指定序号的数据
-    unregister_data_list = wp.get_unregister_data(contacts)
-    print(unregister_data_list)
+    #unregister_data_list = wp.get_unregister_data(contacts)
+    #print(unregister_data_list)
     #------------------------------
     # 对有备注但未标记序号的数据做处理
     # id_num = 8888 #注意: 请改成你实际需要的数字
