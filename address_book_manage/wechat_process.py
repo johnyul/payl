@@ -168,6 +168,11 @@ def main():
     unregister_data_list = wp.get_unregister_data(contacts)
     #unregister_data_list = ['徐玉.sseinfo','王宇韬.pycon19bj']
     print(unregister_data_list)
+    #wp.WriteDictToCSV()
+    #contacts = wp.get_csv_data()
+    # 获取未标注数据: 是有备注，但是没有指定序号的数据
+    #unregister_data_list = wp.get_unregister_data(contacts)
+    #print(unregister_data_list)
     #------------------------------
     # 对无备注的数据的处理
     unremark_l = wp.get_unremark_data(contacts)

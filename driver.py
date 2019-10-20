@@ -23,8 +23,6 @@ def main():
     parser.add_argument("-tag", action="store_true",  help="output csv file list")
 
 
-
-
     # 写条件
     args = parser.parse_args()
 
