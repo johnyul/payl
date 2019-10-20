@@ -35,8 +35,11 @@ def clean_spcial_sign(contacts,to_clean_l):
     flag = 0
     for i in userid_list:
         print(to_clean_l[flag])
-        print(itchat.set_alias(userName=i,alias=to_clean_l[flag].replace('\n','')))
+        r = itchat.set_alias(userName=i,alias=to_clean_l[flag].replace('\n',''))
         flag += 1
+        if r['BaseResponse']['Ret'] != 0:
+            print('Total {},Sucess {}, now failed and exit'.format(len(userid_list),flag))
+            exit()
         sleep(randint(5,15))
 
 def main():
