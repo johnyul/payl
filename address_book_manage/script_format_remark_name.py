@@ -3,7 +3,7 @@ feature: to clean some special sign in remarkName like '\n'
 author: John Yul
 '''
 
-from wechat_process import WechatProcesser
+from online_wechat_process import WechatProcesser
 from random import randint
 from time import sleep
 import itchat

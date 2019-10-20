@@ -1,5 +1,5 @@
 import argparse
-import address_book_manage.wechat_process as wcp
+import address_book_manage.online_wechat_process as wcp
 
 def main():
 

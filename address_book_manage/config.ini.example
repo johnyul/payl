@@ -1,0 +1,17 @@
+[general]
+id_format=z\d{4}
+
+[permanent]
+data_dir=address_book_manage/data
+friends_list_csv=friends.csv
+group_list_csv=group.csv
+
+[wechat_friends_info]
+;start with 0
+RemarkName=8
+NickName=13
+Province=6
+City=2
+Sex=17
+Signature=12
+
