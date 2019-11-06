@@ -117,7 +117,7 @@ class WechatProcesser():
         for __i in name_list:
             # TODO: 这里的方式太personal，需要替换为通用方案
             # TODO: 有逻辑漏洞，有可能有z但是依然没有序号
-            if 'z' in __i:
+            if '.z' in __i:
                 pass
             else:
                 no_z_list.append(__i)
@@ -182,7 +182,7 @@ def main():
     #------------------------------
     # 对有备注但未标记序号的数据做处理
     #id_num = 8888 #注意: 请改成你实际需要的数字
-    #wp.registe_data(contacts,unregister_data_list,_available_num)
+    wp.registe_data(contacts,unregister_data_list,_available_num)
     #------------------------------
     # 用于增加特殊后缀
     #name_list = ['']
