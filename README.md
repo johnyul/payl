@@ -23,6 +23,8 @@ python driver.py -abm -tag
 python driver.py -abm -ocsv
 # output csv file which contains all friends info.
 ```
+Warning: Wechat can only process 100 account and then you need a long break. There
+is also random sleep between each procession.
 
 ## Features
 
