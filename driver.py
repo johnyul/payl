@@ -5,6 +5,9 @@ def main():
 
     example_text = '''example:
 
+    python driver.py -abm -nn
+    # no nickname list and give its name to nickname
+
     python driver.py -abm -untag
     # output untaged wechat account id
 
@@ -21,6 +24,7 @@ def main():
     parser.add_argument("-untag", action="store_true",  help="output untaged wechat account id")
     parser.add_argument("-ocsv", action="store_true",  help="output csv file list")
     parser.add_argument("-tag", action="store_true",  help="output csv file list")
+    parser.add_argument("-nn", action="store_true",  help="no nickname list")
 
 
     # 写条件
@@ -52,7 +56,14 @@ def main():
             wp.registe_data(contacts,unregister_data_list,_available_num)
         wp.del_csv_file()
         
-        
+    if args.abm and args.nn:
+        wp = wcp.WechatProcesser()
+        wp.WriteDictToCSV()
+        contacts = wp.get_csv_data()
+        unremark_l = wp.get_unremark_data(contacts)
+        print('unremark_l:',unremark_l)
+        wp.remark_data(contacts,unremark_l)
+
 
 if __name__ == "__main__":
     main()
