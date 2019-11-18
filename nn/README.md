@@ -11,6 +11,8 @@ export PATH="$PATH:$HOME/payl/nn"
 
 install arrow and clipboard module
 
+change start date to yours.
+
 ## Useage
 
 
