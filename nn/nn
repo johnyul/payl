@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+import sys
+import arrow
+import clipboard
+
+start = '2015-03-28'
+
+help_str = '''nn era converter
+Useage:
+    nn                 -> today NN era
+    nn -d yyyy-mm-dd   -> date -> NN era
+    nn -n [era No.]    -> NN era -> date
+    nn ?|h             -> this help
+'''
+
+def output_date(start,end):
+    _start = arrow.get(start, tzinfo='+0800')
+    _end = arrow.get(end, tzinfo='+0800')
+    return (_end - _start).days
+
+def combine_str(days):
+    return 'NN-{:0>6d}'.format(days)
+
+def trace_start(start,num):
+    _start = arrow.get(start, tzinfo='+0800')
+    r = _start.shift(days=int(num)).format('YYYY-MM-DD')
+    print(r)
+    return r
+
+def main_output_date(end):
+    r = combine_str(output_date(start,end))
+    clipboard.copy(r)
+    text = clipboard.paste()
+    print(text)
+
+def main():
+    #for arg in sys.argv:
+    #    print(arg)
+    if len(sys.argv) == 1:
+        main_output_date(arrow.now().floor('day'))
+    elif sys.argv[1] == '-d':
+        main_output_date(arrow.get(sys.argv[2]))
+    elif sys.argv[1] == '-n':
+        trace_start(start, sys.argv[2])
+    else:
+        print(help_str)
+
+
+
+
+if __name__ == "__main__":
+    main()
